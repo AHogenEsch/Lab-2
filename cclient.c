@@ -66,7 +66,7 @@ void clientControl(int socketNum){
 	addToPollSet(STDIN_FILENO);
 	while(1){
 		/*begin the process of asking the user for their message*/
-		readFromStdin(&sendBuf);
+		readFromStdin(sendBuf);
 		pollCheck = pollCall(-1);
 		if(pollCheck < 0){
 			printf("pollCall() Timed Out\n");
@@ -78,7 +78,7 @@ void clientControl(int socketNum){
 		}
 		else if(pollCheck == STDIN_FILENO){
 			/*User put in a message, time to send it*/
-			sendToServer(socketNum, &sendBuf);
+			sendToServer(socketNum, sendBuf);
 		}
 	}
 }
