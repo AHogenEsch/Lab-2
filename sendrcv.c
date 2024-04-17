@@ -40,6 +40,7 @@ int recvPDU(int socketNumber, uint8_t *dataBuffer, int bufferSize){
         perror("recv error ");
     }
     pduLen = ntohs(pduLen);
+    printf("pduLen= %d, BufferSize = %d\n",pduLen, bufferSize);
     if(pduLen == 0){
         /*Connection was closed on the other side*/
         return 0;
