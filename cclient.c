@@ -68,8 +68,8 @@ void clientControl(int socketNum){
 	while(1){
 		/*begin the process of asking the user for their message*/
 		pollCheck = pollCall(-1);
+		printf("Enter data: ");
 		
-		sendLen = readFromStdin(sendBuf);
 		if(pollCheck < 0){
 			printf("pollCall() Timed Out\n");
 		}
@@ -79,6 +79,7 @@ void clientControl(int socketNum){
 			
 		}
 		else if(pollCheck == STDIN_FILENO){
+			sendLen = readFromStdin(sendBuf);
 			printf("read: %s string len: %d (including null)\n", sendBuf, sendLen);
 			/*User put in a message, time to send it*/
 			sendToServer(socketNum, sendBuf, sendLen);
@@ -136,7 +137,7 @@ int readFromStdin(uint8_t * buffer)
 	
 	// Important you don't input more characters than you have space 
 	buffer[0] = '\0';
-	printf("Enter data: ");
+	/*printf("Enter data: ");*/
 	while (inputLen < (MAXBUF - 1) && aChar != '\n')
 	{
 		aChar = getchar();

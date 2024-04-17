@@ -114,7 +114,7 @@ void processClient(int clientSocket){
 	/* Message received on socket 5, length: 6 Data: hello */
 	uint8_t dataBuffer[MAXBUF];
 	int messageLen = 0;
-	uint8_t msgReceived[16] = "Message Received";
+	uint8_t msgReceived[17] = "Message Received\0";
 	
 	//now get the data from the client_socket
 	if ((messageLen = recvPDU(clientSocket, dataBuffer, MAXBUF)) < 0)
@@ -126,7 +126,7 @@ void processClient(int clientSocket){
 	if (messageLen > 0)
 	{
 		printf("Message received on socket %d, length: %d Data: %s\n", clientSocket, messageLen, dataBuffer);
-		sendPDU(clientSocket, msgReceived, 16);
+		sendPDU(clientSocket, msgReceived, 17);
 	}
 	else
 	{
