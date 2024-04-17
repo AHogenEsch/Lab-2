@@ -65,8 +65,8 @@ void clientControl(int socketNum){
 	setupPollSet();
 	addToPollSet(socketNum);
 	addToPollSet(STDIN_FILENO);
+	printf("Enter data: ");
 	while(1){
-		printf("Enter data: ");
 		/*begin the process of asking the user for their message*/
 		pollCheck = pollCall(-1);
 		
@@ -76,6 +76,7 @@ void clientControl(int socketNum){
 		else if(pollCheck == socketNum){
 			/*Server sent a message*/
 			processMsgFromServer(socketNum);
+			printf("Enter data: ");
 			
 		}
 		else if(pollCheck == STDIN_FILENO){
