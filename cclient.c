@@ -67,10 +67,10 @@ void clientControl(int socketNum){
 	setupPollSet();
 	addToPollSet(socketNum);
 	addToPollSet(STDIN_FILENO);
-	
+	printf("Enter Data: \n");
 	while(1){
 		/*begin the process of asking the user for their message*/
-		printf("Enter Data: \n");
+		
 		pollCheck = pollCall(-1);
 		if(pollCheck < 0){
 			printf("pollCall() Timed Out\n");
@@ -78,7 +78,7 @@ void clientControl(int socketNum){
 		else if(pollCheck == socketNum){
 			/*Server sent a message*/
 			processMsgFromServer(socketNum);
-			
+			printf("Enter Data: \n");
 		}
 		else if(pollCheck == STDIN_FILENO){
 			sendLen = readFromStdin(sendBuf);
