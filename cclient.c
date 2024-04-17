@@ -67,9 +67,8 @@ void clientControl(int socketNum){
 	addToPollSet(STDIN_FILENO);
 	while(1){
 		/*begin the process of asking the user for their message*/
-		pollCheck = pollCall(10000);
-		printf("Asking for your data...\n");
-	
+		pollCheck = pollCall(-1);
+		
 		sendLen = readFromStdin(sendBuf);
 		if(pollCheck < 0){
 			printf("pollCall() Timed Out\n");
