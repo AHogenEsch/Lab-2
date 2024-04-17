@@ -17,7 +17,7 @@ int sendPDU(int clientSocket, uint8_t *dataBuffer, int lengthOfData){
     uint16_t pduLen = ntohs(lengthOfData);
     int numSent;
 
-    printf("Sending a PDU length of: %d", pduLen);
+    printf("Sending a PDU length of: %d from length: %d\n", pduLen, lengthOfData);
     /*add the length to the begginning of the pdu*/
     memcpy(sendPDU, &pduLen, sizeof(uint16_t));
 
