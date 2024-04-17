@@ -14,7 +14,7 @@
 
 int sendPDU(int clientSocket, uint8_t *dataBuffer, int lengthOfData){
     uint8_t *sendPDU = (uint8_t *)malloc(sizeof(uint8_t) * (lengthOfData + 2));
-    uint16_t pduLen = htons(lengthOfData);
+    uint16_t pduLen = ntohs(lengthOfData);
     int numSent;
 
     printf("Sending a PDU length of: %d", pduLen);
