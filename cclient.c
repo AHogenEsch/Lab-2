@@ -47,7 +47,7 @@ void processMsgFromServer(int socketNum){
 	if (messageLen > 0)
 	{
 		/*Printing what the server sent*/
-		printf("%s\n", dataBuffer);
+		printf("%s\nEnter Data: ", dataBuffer);
 	}
 	else
 	{
@@ -97,8 +97,7 @@ int main(int argc, char * argv[])
 
 	/* set up the TCP Client socket  */
 	socketNum = tcpClientSetup(argv[1], argv[2], DEBUG_FLAG);
-	printf("Enter data: ");
-	
+
 	clientControl(socketNum);
 	
 	close(socketNum);

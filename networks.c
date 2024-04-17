@@ -132,7 +132,7 @@ int tcpClientSetup(char * serverName, char * serverPort, int debugFlag)
 
 	if (debugFlag)
 	{
-		printf("Connected to %s IP: %s Port Number: %d\n", serverName, getIPAddressString6(ipAddress), atoi(serverPort));
+		printf("Connected to %s IP: %s Port Number: %d\nEnter Data: ", serverName, getIPAddressString6(ipAddress), atoi(serverPort));
 	}
 	
 	return socket_num;
