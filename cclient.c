@@ -70,8 +70,8 @@ void clientControl(int socketNum){
 	
 	while(1){
 		/*begin the process of asking the user for their message*/
+		printf("Enter Data: ");
 		pollCheck = pollCall(-1);
-		
 		if(pollCheck < 0){
 			printf("pollCall() Timed Out\n");
 		}
