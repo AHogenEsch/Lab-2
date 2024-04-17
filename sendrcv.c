@@ -11,9 +11,9 @@
 #include <arpa/inet.h>
 
 
-/*Was getting "unknown type name uint8_t" error so replaced with char"*/
-int sendPDU(int clientSocket, char *dataBuffer, int lengthOfData){
-    char *sendPDU = (char *)malloc(sizeof(char) * (lengthOfData + 2));
+
+int sendPDU(int clientSocket, uint8_t *dataBuffer, int lengthOfData){
+    uint8_t *sendPDU = (uint8_t *)malloc(sizeof(uint8_t) * (lengthOfData + 2));
     uint16_t pduLen = htons(lengthOfData);
     int numSent;
 
@@ -21,7 +21,7 @@ int sendPDU(int clientSocket, char *dataBuffer, int lengthOfData){
     memcpy(sendPDU, &pduLen, sizeof(uint16_t));
 
     /*Copying the databuffer*/
-    memcpy(sendPDU, dataBuffer + (sizeof(uint16_t)), sizeof(char) * lengthOfData);
+    memcpy(sendPDU, dataBuffer + (sizeof(uint16_t)), sizeof(uint8_t) * lengthOfData);
 
     /*Sending*/
     numSent = send(clientSocket, sendPDU, lengthOfData + 2, 0);
@@ -32,7 +32,7 @@ int sendPDU(int clientSocket, char *dataBuffer, int lengthOfData){
 
     return numSent;
 }
-int recvPDU(int socketNumber, char *dataBuffer, int bufferSize){
+int recvPDU(int socketNumber, uint8_t *dataBuffer, int bufferSize){
     uint16_t pduLen;
     int numRecv;
     /*receving the length first*/

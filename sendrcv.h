@@ -1,2 +1,3 @@
-int sendPDU(int clientSocket, char * dataBuffer, int lengthOfData);
-int recvPDU(int socketNumber, char * dataBuffer, int bufferSize);
+#include <stdint.h>
+int sendPDU(int clientSocket, uint8_t * dataBuffer, int lengthOfData);
+int recvPDU(int socketNumber, uint8_t * dataBuffer, int bufferSize);
