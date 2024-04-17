@@ -40,8 +40,9 @@ int main(int argc, char * argv[])
 
 	/* set up the TCP Client socket  */
 	socketNum = tcpClientSetup(argv[1], argv[2], DEBUG_FLAG);
-	
-	sendToServer(socketNum);
+	while(1){
+		sendToServer(socketNum);
+	}
 	
 	close(socketNum);
 	
@@ -63,8 +64,15 @@ void sendToServer(int socketNum)
 		perror("send call");
 		exit(-1);
 	}
-
-	printf("Amount of data sent is: %d\n", sent);
+	else if(sent == 0){
+		printf("Server has terminated");
+		close(socketNum);
+		exit(0);
+	}
+	else{
+		printf("Amount of data sent is: %d\n", sent);
+	}
+	
 }
 
 int readFromStdin(uint8_t * buffer)
@@ -104,4 +112,6 @@ void checkArgs(int argc, char * argv[])
 
 void clientControl(int socketNum){
 	/*continuosly loop and call stdin function for more things to send to the server*/
+
+
 }
