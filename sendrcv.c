@@ -17,7 +17,7 @@ int sendPDU(int clientSocket, uint8_t *dataBuffer, int lengthOfData){
     uint16_t pduLen = htons(lengthOfData);
     int numSent;
 
-    printf("Sending a PDU length of: %d from length: %d\n", ntohs(pduLen), lengthOfData);
+    /*printf("Sending a PDU length of: %d from length: %d\n", ntohs(pduLen), lengthOfData);*/
     /*add the length to the begginning of the pdu*/
     memcpy(sendPDU, &pduLen, sizeof(uint16_t));
 
@@ -42,7 +42,7 @@ int recvPDU(int socketNumber, uint8_t *dataBuffer, int bufferSize){
         perror("recv error ");
     }
     pduLen = ntohs(pduLen);
-    printf("pduLen= %d, BufferSize = %d\n", pduLen, bufferSize);
+    /*printf("pduLen= %d, BufferSize = %d\n", pduLen, bufferSize);*/
     if(pduLen == 0){
         /*Connection was closed on the other side*/
         return 0;
