@@ -14,16 +14,16 @@
 
 int sendPDU(int clientSocket, uint8_t *dataBuffer, int lengthOfData){
     uint8_t *sendPDU = (uint8_t *)malloc(sizeof(uint8_t) * (lengthOfData + 2));
-    uint16_t pduLen = ntohs(lengthOfData);
+    uint16_t pduLen = htons(lengthOfData);
     int numSent;
 
-    printf("Sending a PDU length of: %d from length: %d\n", pduLen, lengthOfData);
+    printf("Sending a PDU length of: %d from length: %d\n", ntohs(pduLen), lengthOfData);
     /*add the length to the begginning of the pdu*/
     memcpy(sendPDU, &pduLen, sizeof(uint16_t));
 
 
     /*Copying the databuffer*/
-    memcpy(sendPDU, dataBuffer + (sizeof(uint16_t)), sizeof(uint8_t) * lengthOfData);
+    memcpy(sendPDU + (sizeof(uint16_t)), dataBuffer, sizeof(uint8_t) * lengthOfData);
 
     /*Sending*/
     numSent = send(clientSocket, sendPDU, lengthOfData + 2, 0);
