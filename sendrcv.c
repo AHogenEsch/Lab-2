@@ -39,13 +39,13 @@ int recvPDU(int socketNumber, uint8_t *dataBuffer, int bufferSize){
     if(recv(socketNumber, &pduLen, (sizeof(uint16_t)), MSG_WAITALL) < 0){
         perror("recv error ");
     }
-    pduLen = ntohs(pduLen);
-    printf("pduLen= %d, BufferSize = %d\n",pduLen, bufferSize);
+    pduLen = htons(pduLen);
+    printf("pduLen= %d, BufferSize = %d\n",pduLen, htons(bufferSize));
     if(pduLen == 0){
         /*Connection was closed on the other side*/
         return 0;
-    }else if (pduLen > ntohs(bufferSize)) {
-        printf("Buffer too small to receive PDU (Missing %d bytes)", (pduLen - ntohs(bufferSize)));
+    }else if (pduLen > htons(bufferSize)) {
+        printf("Buffer too small to receive PDU (Missing %d bytes)", (pduLen - htons(bufferSize)));
         return 0;
     }
     
