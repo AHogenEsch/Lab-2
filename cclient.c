@@ -29,7 +29,7 @@
 #define MAXBUF 1024
 #define DEBUG_FLAG 1
 
-void sendToServer(int socketNum, uint8_t buffer);
+void sendToServer(int socketNum, uint8_t *buffer);
 int readFromStdin(uint8_t * buffer);
 void checkArgs(int argc, char * argv[]);
 
@@ -53,8 +53,8 @@ void processMsgFromServer(int socketNum){
 	{
 		printf("Connection closed by other side\n");
 		/*removing from poll set if the connection is closed*/
-		close(clientSocket);
-		removeFromPollSet(clientSocket);
+		close(socketNum);
+		removeFromPollSet(socketNum);
 	}
 }
 
@@ -66,7 +66,7 @@ void clientControl(int socketNum){
 	addToPollSet(STDIN_FILENO);
 	while(1){
 		/*begin the process of asking the user for their message*/
-		readFromStdin(sendBuf);
+		readFromStdin(&sendBuf);
 		pollCheck = pollCall(-1);
 		if(pollCheck < 0){
 			printf("pollCall() Timed Out\n");
@@ -78,7 +78,7 @@ void clientControl(int socketNum){
 		}
 		else if(pollCheck == STDIN_FILENO){
 			/*User put in a message, time to send it*/
-			sendToServer(socketNum, sendBuf);
+			sendToServer(socketNum, &sendBuf);
 		}
 	}
 }
