@@ -62,10 +62,11 @@ void sendToServer(int socketNum)
 	if (sent < 0)
 	{
 		perror("send call");
+		printf("Server has terminated or sendPDU failed\n");
 		exit(-1);
 	}
 	else if(sent == 0){
-		printf("Server has terminated");
+		printf("Server has terminated\n");
 		close(socketNum);
 		exit(0);
 	}
