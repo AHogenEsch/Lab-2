@@ -149,7 +149,7 @@ void serverControl(int mainSocket){
 	addToPollSet(mainSocket);
 
 	while(1){
-		pollCheck = pollCall(10000);
+		pollCheck = pollCall(-1);
 		if(pollCheck < 0){
 			printf("Poll() Timed Out.\n");
 		}

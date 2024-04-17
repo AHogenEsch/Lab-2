@@ -47,7 +47,7 @@ int recvPDU(int socketNumber, uint8_t *dataBuffer, int bufferSize){
         /*Connection was closed on the other side*/
         return 0;
     }else if (pduLen > bufferSize) {
-        printf("Buffer too small to receive PDU (Missing %d bytes)", (pduLen - bufferSize));
+        printf("Buffer too small to receive PDU\n");
         return 0;
     }
     
