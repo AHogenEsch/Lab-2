@@ -51,10 +51,11 @@ void processMsgFromServer(int socketNum){
 	}
 	else
 	{
-		printf("Connection closed by other side\n");
+		printf("Server Terminated\n");
 		/*removing from poll set if the connection is closed*/
 		close(socketNum);
 		removeFromPollSet(socketNum);
+		exit(0);
 	}
 }
 
