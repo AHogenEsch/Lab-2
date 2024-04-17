@@ -29,7 +29,7 @@
 #define MAXBUF 1024
 #define DEBUG_FLAG 1
 
-void sendToServer(int socketNum, uint8_t *buffer);
+void sendToServer(int socketNum, uint8_t *buffer, int len);
 int readFromStdin(uint8_t * buffer);
 void checkArgs(int argc, char * argv[]);
 
@@ -61,13 +61,15 @@ void processMsgFromServer(int socketNum){
 void clientControl(int socketNum){
 	int pollCheck;
 	uint8_t sendBuf[MAXBUF];
+	int sendLen;
 	setupPollSet();
 	addToPollSet(socketNum);
 	addToPollSet(STDIN_FILENO);
 	while(1){
 		/*begin the process of asking the user for their message*/
-		readFromStdin(sendBuf);
-		pollCheck = pollCall(-1);
+		sendLen = readFromStdin(sendBuf);
+		
+		pollCheck = pollCall(10000);
 		if(pollCheck < 0){
 			printf("pollCall() Timed Out\n");
 		}
@@ -77,8 +79,9 @@ void clientControl(int socketNum){
 			
 		}
 		else if(pollCheck == STDIN_FILENO){
+			printf("read: %s string len: %d (including null)\n", sendBuf, sendLen);
 			/*User put in a message, time to send it*/
-			sendToServer(socketNum, sendBuf);
+			sendToServer(socketNum, sendBuf, sendLen);
 		}
 	}
 }
@@ -99,14 +102,14 @@ int main(int argc, char * argv[])
 	return 0;
 }
 
-void sendToServer(int socketNum, uint8_t *sendBuf)
+void sendToServer(int socketNum, uint8_t *sendBuf, int sendLen)
 {
 	/*uint8_t sendBuf[MAXBUF];*/   //data buffer
-	int sendLen = 0;        //amount of data to send
+	/*int sendLen = 0; */       //amount of data to send
 	int sent = 0;            //actual amount of data sent/* get the data and send it   */
 	
 	/*sendLen = readFromStdin(sendBuf);*/
-	printf("read: %s string len: %d (including null)\n", sendBuf, sendLen);
+	/*printf("read: %s string len: %d (including null)\n", sendBuf, sendLen);*/
 	
 	sent =  sendPDU(socketNum, sendBuf, sendLen);
 	if (sent < 0)
