@@ -29,7 +29,7 @@
 #define MAXBUF 1024
 #define DEBUG_FLAG 1
 
-void sendToServer(int socketNum);
+void sendToServer(int socketNum, uint8_t buffer);
 int readFromStdin(uint8_t * buffer);
 void checkArgs(int argc, char * argv[]);
 
@@ -76,7 +76,7 @@ void clientControl(int socketNum){
 			processMsgFromServer(socketNum);
 			
 		}
-		else if(pollCheck == STDIN_FILEO){
+		else if(pollCheck == STDIN_FILENO){
 			/*User put in a message, time to send it*/
 			sendToServer(socketNum, sendBuf);
 		}
