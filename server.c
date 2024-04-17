@@ -24,17 +24,21 @@
 #include "networks.h"
 #include "safeUtil.h"
 #include "sendrcv.h"
+#include "pollLib.h"
 
 #define MAXBUF 1024
 #define DEBUG_FLAG 1
 
 void recvFromClient(int clientSocket);
 int checkArgs(int argc, char *argv[]);
+void processClient(int clientSk);
+void addNewSocket(int mainSk);
+void serverControl(int mainSk);
 
 int main(int argc, char *argv[])
 {
 	int mainServerSocket = 0;   //socket descriptor for the server socket
-	int clientSocket = 0;   //socket descriptor for the client socket
+	/*int clientSocket = 0;*/   //socket descriptor for the client socket
 	int portNumber = 0;
 	
 	portNumber = checkArgs(argc, argv);

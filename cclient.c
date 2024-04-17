@@ -110,8 +110,5 @@ void checkArgs(int argc, char * argv[])
 	}
 }
 
-void clientControl(int socketNum){
+/*void clientControl(int socketNum){*/
 	/*continuosly loop and call stdin function for more things to send to the server*/
-
-
-}
