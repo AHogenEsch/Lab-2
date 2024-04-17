@@ -105,7 +105,7 @@ void addNewSocket(int mainSocket){
 	/*processes new connection, accept() and adding to poll set*/
 	int newSocket;
 	newSocket = tcpAccept(mainSocket, DEBUG_FLAG);
-	addtoPollSet(newSocket);
+	addToPollSet(newSocket);
 
 }
 
@@ -149,7 +149,7 @@ void serverControl(int mainSocket){
 	addToPollSet(mainSocket);
 
 	while(1){
-		pollCheck = pollCall();
+		pollCheck = pollCall(10000);
 		if(pollCheck < 0){
 			printf("Poll() Timed Out.\n");
 		}
